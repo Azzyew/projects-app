@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ProjectsService } from '@/services/projects.service';
 
 export const useProjectsQuery = () => {
-  const getAll = () => {
+  const getAllProjects = () => {
     return useQuery({
       queryKey: ['get-projects'],
       queryFn: () => {
@@ -12,7 +12,7 @@ export const useProjectsQuery = () => {
     })
   };
 
-  const getOneById = (id) => {
+  const getProjectById = (id) => {
     return useQuery({
       queryKey: ['get-project-by-id'],
       queryFn: () => {
@@ -21,7 +21,7 @@ export const useProjectsQuery = () => {
     })
   };
 
-  const remove = (id) => {
+  const removeProject = (id) => {
     return useMutation({
       mutationFn: () => {
         return ProjectsService.deleteProject(id);
@@ -29,5 +29,13 @@ export const useProjectsQuery = () => {
     });
   };
 
-  return { getAll, getOneById, remove };
+  const createProject = (project) => {
+    return useMutation({
+      mutationFn: () => {
+        return ProjectsService.createProject(project);
+      },
+    });
+  };
+
+  return { getAllProjects, getProjectById, removeProject, createProject };
 };

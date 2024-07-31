@@ -5,6 +5,11 @@ export class ProjectsService {
     baseURL: `${process.env.EXPO_PUBLIC_API_URL}/projects/`,
   });
 
+
+  static async createProject(project) {
+    await ProjectsService.client.post('', project);
+  };
+
   static async getAllProjects() {
     const response = await ProjectsService.client.get('');
 
@@ -19,5 +24,5 @@ export class ProjectsService {
 
   static async deleteProject(id) {
     await ProjectsService.client.delete(id);
-  }
+  };
 }
