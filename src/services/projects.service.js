@@ -5,7 +5,6 @@ export class ProjectsService {
     baseURL: `${process.env.EXPO_PUBLIC_API_URL}/projects/`,
   });
 
-
   static async createProject(project) {
     await ProjectsService.client.post('', project);
   };
