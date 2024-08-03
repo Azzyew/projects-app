@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
-import { ProjectsService } from '@/services/projects.service';
+import { ProjectsService } from '../services/projects.service';
 
 export const useProjectsQuery = () => {
   const getAllProjects = () => {

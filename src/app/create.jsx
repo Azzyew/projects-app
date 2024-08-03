@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useProjectsQuery } from '../queries/projects';
 import { useState } from 'react';
 import DatePicker from 'react-native-date-picker';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { Input } from '../components/input';
+import { Button } from '../components/button';
+import colors from "tailwindcss/colors";
 
 export default function HomeScreen() {
   const [projectName, setProjectName] = useState('');
@@ -24,42 +28,47 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className='flex-1 bg-white items-center justify-center'>
-      <Text>Criar novo projeto</Text>
-      <TextInput
-        onChangeText={setProjectName}
-        value={projectName}
-        placeholder="Nome do projeto"
-      />
-      <TextInput
-        onChangeText={setCompanyName}
-        value={companyName}
-        placeholder="Nome da empresa"
-      />
-      <DatePicker date={deadline} onDateChange={setDeadline} />
-      <TextInput
-        onChangeText={setTotalPrice}
-        value={totalPrice}
-        placeholder="Valor total"
-        inputMode='numeric'
-        keyboardType='numeric'
-      />
-      <TextInputs
-        onChangeText={setDescription}
-        value={description}
-        placeholder="Descrição"
-      />
-      <BouncyCheckbox
-        size={30}
-        fillColor={'#5EBAF7'}
-        unFillColor={'transparent'}
-        isChecked={needsDeploy}
-        text="Precisa de deploy?"
-        onPress={() => setNeedsDeploy(!needsDeploy)}
-      />
+    <SafeAreaView className='flex-1 bg-sky-100'>
+      <View className='px-12 py-24'>
+        <ScrollView>
+          <Text className='text-sky-800 text-lg font-semibold'>Criar novo projeto</Text>
+          <Input
+            onChangeText={setProjectName}
+            value={projectName}
+            placeholder="Nome do projeto"
+          />
+          <Input
+            onChangeText={setCompanyName}
+            value={companyName}
+            placeholder="Nome da empresa"
+          />
+          <DatePicker date={deadline} onDateChange={setDeadline} />
+          <Input
+            onChangeText={setTotalPrice}
+            value={totalPrice}
+            placeholder="Valor total"
+            inputMode='numeric'
+            keyboardType='numeric'
+          />
+          <Input
+            onChangeText={setDescription}
+            value={description}
+            placeholder="Descrição"
+            multiline
+          />
+          <BouncyCheckbox
+            size={25}
+            fillColor={colors.sky[800]}
+            unFillColor={'transparent'}
+            isChecked={needsDeploy}
+            text="Precisa de deploy?"
+            onPress={() => setNeedsDeploy(!needsDeploy)}
+          />
 
-      <TouchableOpacity onPress={createProject(project)}>Criar</TouchableOpacity>
-      <StatusBar style="auto" />
+          <Button buttonText="Criar" onPress={() => createProject(project)} />
+          <StatusBar style="auto" />
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
