@@ -37,5 +37,13 @@ export const useProjectsQuery = () => {
     });
   };
 
-  return { getAllProjects, getProjectById, removeProject, createProject };
+  const editProject = (project) => {
+    return useMutation({
+      mutationFn: () => {
+        return ProjectsService.editProject(project);
+      },
+    });
+  };
+
+  return { getAllProjects, getProjectById, removeProject, createProject, editProject };
 };

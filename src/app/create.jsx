@@ -8,7 +8,7 @@ import { Input } from '../components/input';
 import { Button } from '../components/button';
 import colors from "tailwindcss/colors";
 
-export default function HomeScreen() {
+export default function CreateProject() {
   const [projectName, setProjectName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [deadline, setDeadline] = useState(new Date());
