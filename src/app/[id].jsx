@@ -2,12 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import DatePicker from 'react-native-date-picker';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import colors from "tailwindcss/colors";
 import { Input } from '../components/input';
 import { Button } from '../components/button';
 import { useProjectsQuery } from '../queries/projects';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 export default function EditProject() {
   const { id } = useLocalSearchParams();
@@ -65,7 +65,7 @@ export default function EditProject() {
             value={companyName}
             placeholder="Nome da empresa"
           />
-          <DatePicker date={deadline} onDateChange={setDeadline} />
+          <RNDateTimePicker value={deadline} onChange={setDeadline} />
           <Input
             onChangeText={setTotalPrice}
             value={totalPrice}

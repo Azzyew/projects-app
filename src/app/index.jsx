@@ -6,13 +6,13 @@ import { Button } from '../components/button';
 import { Card } from '../components/card';
 
 export default function HomeScreen() {
-  const { getAllProjects } = useProjectsQuery();
-
-  const { data, isLoading } = getAllProjects();
+  const { data, isLoading } = useProjectsQuery().getAllProjects;
 
   if (isLoading) (
     <Text>Carregando...</Text>
   );
+
+  console.log(data);
 
   return (
     <SafeAreaView className='flex-1 bg-sky-100 items-center'>

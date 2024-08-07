@@ -1,47 +1,34 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-
 import { ProjectsService } from '../services/projects.service';
 
 export const useProjectsQuery = () => {
-  const getAllProjects = () => {
-    return useQuery({
-      queryKey: ['get-projects'],
-      queryFn: () => {
-        return ProjectsService.getAllProjects();
-      },
-    })
-  };
+  const getAllProjects = useQuery({
+    queryKey: ['get-projects'],
+    queryFn: ProjectsService.getAllProjects,
+  });
 
   const getProjectById = (id) => {
     return useQuery({
-      queryKey: ['get-project-by-id'],
-      queryFn: () => {
-        return ProjectsService.getProjectById(id);
-      },
-    })
+      queryKey: ['get-project-by-id', id],
+      queryFn: () => ProjectsService.getProjectById(id),
+    });
   };
 
   const removeProject = (id) => {
     return useMutation({
-      mutationFn: () => {
-        return ProjectsService.deleteProject(id);
-      },
+      mutationFn: () => ProjectsService.deleteProject(id),
     });
   };
 
-  const createProject = (project) => {
+  const createProject = () => {
     return useMutation({
-      mutationFn: () => {
-        return ProjectsService.createProject(project);
-      },
+      mutationFn: (project) => ProjectsService.createProject(project),
     });
   };
 
-  const editProject = (project) => {
+  const editProject = () => {
     return useMutation({
-      mutationFn: () => {
-        return ProjectsService.editProject(project);
-      },
+      mutationFn: (project) => ProjectsService.editProject(project),
     });
   };
 

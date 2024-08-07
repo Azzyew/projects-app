@@ -2,13 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useProjectsQuery } from '../queries/projects';
 import { useState } from 'react';
-import DatePicker from 'react-native-date-picker';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { Input } from '../components/input';
 import { Button } from '../components/button';
 import colors from "tailwindcss/colors";
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { useRouter } from 'expo-router';
 
 export default function CreateProject() {
+  const router = useRouter();
+
   const [projectName, setProjectName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [deadline, setDeadline] = useState(new Date());
@@ -16,7 +19,17 @@ export default function CreateProject() {
   const [description, setDescription] = useState('');
   const [needsDeploy, setNeedsDeploy] = useState(false);
 
-  const { createProject } = useProjectsQuery();
+  const { mutate: createProject } = useProjectsQuery().createProject();
+
+  const handleCreateProject = () => {
+    createProject(project);
+    router.push('/');
+
+  };
+
+  const handleSelectDeadline = (event, date) => {
+    setDeadline(date);
+  }
 
   const project = {
     name: projectName,
@@ -42,7 +55,7 @@ export default function CreateProject() {
             value={companyName}
             placeholder="Nome da empresa"
           />
-          <DatePicker date={deadline} onDateChange={setDeadline} />
+          <RNDateTimePicker value={deadline} onChange={handleSelectDeadline} />
           <Input
             onChangeText={setTotalPrice}
             value={totalPrice}
@@ -65,7 +78,7 @@ export default function CreateProject() {
             onPress={() => setNeedsDeploy(!needsDeploy)}
           />
 
-          <Button buttonText="Criar" onPress={() => createProject(project)} />
+          <Button buttonText="Criar" onPress={handleCreateProject} />
           <StatusBar style="auto" />
         </ScrollView>
       </View>
