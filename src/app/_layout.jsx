@@ -3,7 +3,11 @@ import { SafeAreaView } from "react-native";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 export default function Layout() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { refetchInterval: 5000 }
+    }
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -14,9 +14,9 @@ export const useProjectsQuery = () => {
     });
   };
 
-  const removeProject = (id) => {
+  const removeProject = () => {
     return useMutation({
-      mutationFn: () => ProjectsService.deleteProject(id),
+      mutationFn: (id) => ProjectsService.deleteProject(id),
     });
   };
 

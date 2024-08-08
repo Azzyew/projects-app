@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { useProjectsQuery } from '../queries/projects';
 import { Link } from 'expo-router';
+import { useProjectsQuery } from '../queries/projects';
 import { Button } from '../components/button';
 import { Card } from '../components/card';
 
@@ -11,8 +11,6 @@ export default function HomeScreen() {
   if (isLoading) (
     <Text>Carregando...</Text>
   );
-
-  console.log(data);
 
   return (
     <SafeAreaView className='flex-1 bg-sky-100 items-center'>
@@ -26,7 +24,9 @@ export default function HomeScreen() {
 
         {data?.length > 0 ? (
           <ScrollView className='mt-4'>
-            {/* cards here */}
+            {data.map((project) => (
+              <Card data={project} key={project.id} />
+            ))}
           </ScrollView>
         )
           : (

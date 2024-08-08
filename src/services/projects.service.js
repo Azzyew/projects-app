@@ -26,6 +26,6 @@ export class ProjectsService {
   };
 
   static async deleteProject(id) {
-    await ProjectsService.client.delete(id);
+    await ProjectsService.client.delete(`${id}`);
   };
 }

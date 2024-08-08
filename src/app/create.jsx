@@ -24,7 +24,6 @@ export default function CreateProject() {
   const handleCreateProject = () => {
     createProject(project);
     router.push('/');
-
   };
 
   const handleSelectDeadline = (event, date) => {

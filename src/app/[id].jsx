@@ -1,21 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import colors from "tailwindcss/colors";
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import colors from 'tailwindcss/colors';
 import { Input } from '../components/input';
 import { Button } from '../components/button';
 import { useProjectsQuery } from '../queries/projects';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 export default function EditProject() {
-  const { id } = useLocalSearchParams();
-  const { getProjectById, editProject } = useProjectsQuery();
+  const router = useRouter();
 
-  useEffect(() => {
-    getProjectById(id);
-  }, [])
+  const { id } = useLocalSearchParams();
+  const { data, isLoading } = useProjectsQuery().getProjectById(id);
+  const { mutate: editProject } = useProjectsQuery().editProject();
+
+  const handleEditProject = () => {
+    editProject(project);
+    router.push('/');
+  };
 
   const [projectName, setProjectName] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -23,8 +28,6 @@ export default function EditProject() {
   const [totalPrice, setTotalPrice] = useState();
   const [description, setDescription] = useState('');
   const [needsDeploy, setNeedsDeploy] = useState(false);
-
-  const { data, isLoading } = getProjectById(id);
 
   useEffect(() => {
     if (data) {
@@ -36,6 +39,10 @@ export default function EditProject() {
       setNeedsDeploy(data.needsDeploy || false);
     }
   }, [data]);
+
+  const handleSelectDeadline = (event, date) => {
+    setDeadline(date);
+  }
 
   if (isLoading) {
     return <Text>Carregando...</Text>;
@@ -53,6 +60,10 @@ export default function EditProject() {
   return (
     <SafeAreaView className='flex-1 bg-sky-100'>
       <View className='px-12 py-24'>
+        <TouchableOpacity className='flex-row mb-7 items-center' onPress={() => router.push('/')}>
+          <FontAwesome5 name='arrow-left' size={20} color={colors.sky[800]} />
+          <Text className='ml-2 font-semibold text-sky-800'>Voltar</Text>
+        </TouchableOpacity>
         <ScrollView>
           <Text className='text-sky-800 text-lg font-semibold'>Editar projeto</Text>
           <Input
@@ -65,7 +76,7 @@ export default function EditProject() {
             value={companyName}
             placeholder="Nome da empresa"
           />
-          <RNDateTimePicker value={deadline} onChange={setDeadline} />
+          <RNDateTimePicker value={new Date(deadline)} onChange={handleSelectDeadline} />
           <Input
             onChangeText={setTotalPrice}
             value={totalPrice}
@@ -88,7 +99,7 @@ export default function EditProject() {
             onPress={() => setNeedsDeploy(!needsDeploy)}
           />
 
-          <Button buttonText="Salvar" onPress={() => editProject(project)} />
+          <Button buttonText="Salvar" onPress={handleEditProject} />
           <StatusBar style="auto" />
         </ScrollView>
       </View>
