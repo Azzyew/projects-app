@@ -1,18 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import colors from 'tailwindcss/colors';
 import { Input } from '../components/input';
 import { Button } from '../components/button';
 import { useProjectsQuery } from '../queries/projects';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { BackButton } from '../components/back-button';
 
 export default function EditProject() {
   const router = useRouter();
-
   const { id } = useLocalSearchParams();
   const { data, isLoading } = useProjectsQuery().getProjectById(id);
   const { mutate: editProject } = useProjectsQuery().editProject();
@@ -60,10 +59,7 @@ export default function EditProject() {
   return (
     <SafeAreaView className='flex-1 bg-sky-100'>
       <View className='px-12 py-24'>
-        <TouchableOpacity className='flex-row mb-7 items-center' onPress={() => router.push('/')}>
-          <FontAwesome5 name='arrow-left' size={20} color={colors.sky[800]} />
-          <Text className='ml-2 font-semibold text-sky-800'>Voltar</Text>
-        </TouchableOpacity>
+        <BackButton />
         <ScrollView>
           <Text className='text-sky-800 text-lg font-semibold'>Editar projeto</Text>
           <Input

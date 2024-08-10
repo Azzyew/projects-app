@@ -8,6 +8,7 @@ import { Button } from '../components/button';
 import colors from "tailwindcss/colors";
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { useRouter } from 'expo-router';
+import { BackButton } from '../components/back-button';
 
 export default function CreateProject() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function CreateProject() {
   return (
     <SafeAreaView className='flex-1 bg-sky-100'>
       <View className='px-12 py-24'>
+        <BackButton />
         <ScrollView>
           <Text className='text-sky-800 text-lg font-semibold'>Criar novo projeto</Text>
           <Input

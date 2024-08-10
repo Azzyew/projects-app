@@ -5,7 +5,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 export default function Layout() {
   const queryClient = new QueryClient({
     defaultOptions: {
-      queries: { refetchInterval: 5000 }
+      queries: { refetchInterval: 3000 }
     }
   });
 
