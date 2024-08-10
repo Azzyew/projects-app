@@ -18,7 +18,7 @@ export default function EditProject() {
   const { mutate: editProject } = useProjectsQuery().editProject();
 
   const handleEditProject = () => {
-    editProject(project);
+    editProject({ id, project });
     router.push('/');
   };
 
@@ -79,7 +79,7 @@ export default function EditProject() {
           <RNDateTimePicker value={new Date(deadline)} onChange={handleSelectDeadline} />
           <Input
             onChangeText={setTotalPrice}
-            value={totalPrice}
+            value={totalPrice?.toString()}
             placeholder="Valor total"
             inputMode='numeric'
             keyboardType='numeric'

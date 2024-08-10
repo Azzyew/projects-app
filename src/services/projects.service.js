@@ -9,8 +9,8 @@ export class ProjectsService {
     await ProjectsService.client.post('', project);
   };
 
-  static async editProject(project) {
-    await ProjectsService.client.patch('', project);
+  static async editProject(id, project) {
+    await ProjectsService.client.patch(`${id}`, project);
   };
 
   static async getAllProjects() {

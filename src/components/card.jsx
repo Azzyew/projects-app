@@ -17,7 +17,12 @@ export const Card = (data) => {
     <View className='mt-4 border border-sky-800 bg-white px-8 py-6 rounded-md w-[80vw]'>
       <View className='flex-row justify-between items-center'>
         <Text className='text-lg font-semibold'>{name}</Text>
-        <Text className='text-sky-800 text-lg font-semibold'>R$ {totalPrice}</Text>
+        <Text className='text-sky-800 text-lg font-semibold'>
+          {new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(+totalPrice)}
+        </Text>
       </View>
       <Text className='text-slate-500'>{company}</Text>
 

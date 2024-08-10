@@ -28,7 +28,7 @@ export const useProjectsQuery = () => {
 
   const editProject = () => {
     return useMutation({
-      mutationFn: (project) => ProjectsService.editProject(project),
+      mutationFn: ({ id, project }) => ProjectsService.editProject(id, project),
     });
   };
 
